@@ -1,20 +1,30 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import HelloWorld from '@/components/HelloWorld'
-import hello from '@/components/hello/hello'
+import Project from '../components/company/project.vue'
+import Patent from '../components/company/patent.vue'
+import Resume from '../components/company/resume.vue'
 
 Vue.use(Router)
 
 export default new Router({
+  mode: 'history',
+  base: __dirname,
   routes: [
     {
-      path: '/',
-      name: 'HelloWorld',
-      component: HelloWorld
+      path: '/project',
+      name: 'project',
+      component: Project,
+      alias: '/'
     },
     {
-      path:'/hello',
-      component:hello
+      path: '/patent',
+      name: 'patent',
+      component: Patent
+    },
+    {
+      path: '/resume',
+      name: 'resume',
+      component: Resume
     }
   ]
 })

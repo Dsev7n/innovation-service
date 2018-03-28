@@ -4,7 +4,7 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 import VueResource from 'vue-resource'
-import axios from "axios"
+// import axios from "axios"
 Vue.config.productionTip = false
 
 Vue.use(VueResource)
@@ -17,11 +17,11 @@ new Vue({
 })
 
 
-axios({
-  url: 'https://cnodejs.org/api/v1',
-  method:'get',
-}).then((res)=>{
-  return res.data
-}).then((data)=>{
+// axios({
+//   url: 'https://cnodejs.org/api/v1',
+//   method:'get',
+// }).then((res)=>{
+//   return res.data
+// }).then((data)=>{
   
-})
+// })
