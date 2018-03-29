@@ -1,6 +1,6 @@
 <template>
   <div id="company-nav">
-    <i class="company-nav-logo"><img src="../../assets/images/专利边框.png" alt="logo"/></i>
+    <i class="company-nav-logo"><img src="../../assets/images/logo.png" alt="logo"/></i>
     <p class="company-nav-title">创新项目网络服务平台</p>
     <ul class="company-nav-items">
       <li class="company-nav-item"><router-link to="/project" class="company-nav-item-name" v-bind:class="{'itemActive':isProjectActive}">项目</router-link></li>
@@ -27,7 +27,7 @@ export default {
 
 <style scoped>
 body {
-  font-family: '微软雅黑';
+  font-family: "Microsoft YaHei";
 }
 ul,li,p,div,span{
   margin: 0;
@@ -52,6 +52,9 @@ i{
 .company-nav-title {
   color: #777;
   font-size: 24px;
+  align-self: stretch;
+  justify-self: stretch;
+  margin-top: 40px;
 }
 .company-nav-items {
   list-style: none;

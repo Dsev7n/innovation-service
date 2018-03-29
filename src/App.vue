@@ -14,9 +14,7 @@ export default {
     return {
       isProjectActive: true,
       isPatentActive: false,
-      isResumeActive: false,
-      activeItem: 'project'
-
+      isResumeActive: false
     }
   },
   components: {
