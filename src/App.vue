@@ -34,8 +34,15 @@ export default {
 </script>
 
 <style>
+body {
+  font-family: "Microsoft YaHei";
+}
+body,ul,li,p,div,span,input{
+  margin: 0;
+  padding: 0;
+}
 .fade-enter-active, .fade-leave-active {
-  transition: opacity .5s;
+  transition: opacity .2s;
 }
 .fade-enter, .fade-leave-to {
   opacity: 0 ;

@@ -1,6 +1,8 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Project from '../components/company/project.vue'
+import Project from '../components/company/project/project.vue'
+import ProjectPublish from '../components/company/project/project-publish.vue'
+import ProjectMy from '../components/company/project/project-my.vue'
 import Patent from '../components/company/patent.vue'
 import Resume from '../components/company/resume.vue'
 
@@ -16,6 +18,8 @@ export default new Router({
       component: Project,
       alias: '/'
     },
+    {path: '/project/company/publish', component: ProjectPublish},
+    {path: '/project/my', component: ProjectMy},
     {
       path: '/patent',
       name: 'patent',

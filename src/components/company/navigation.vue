@@ -26,13 +26,6 @@ export default {
 </script>
 
 <style scoped>
-body {
-  font-family: "Microsoft YaHei";
-}
-ul,li,p,div,span{
-  margin: 0;
-  padding: 0;
-}
 i{
   font-style:normal;
 }
