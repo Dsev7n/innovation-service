@@ -34,13 +34,21 @@ export default {
 </script>
 
 <style>
+html {
+  min-height: 100vh;
+}
 body {
+  height: 100%;
   font-family: "Microsoft YaHei";
+}
+#app {
+  height:100%;
 }
 body,ul,li,p,div,span,input{
   margin: 0;
   padding: 0;
 }
+
 .fade-enter-active, .fade-leave-active {
   transition: opacity .2s;
 }

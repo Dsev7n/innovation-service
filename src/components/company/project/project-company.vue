@@ -3,7 +3,7 @@
     <i class="company-logo"><img src="../../../assets/images/logo.png" alt="logo"/></i>
     <p class="company-title">创新项目网络服务平台</p>
     <i class="company-button company-publish-button"><router-link to="/project/company/publish" ><img src="../../../assets/images/发布项目按钮.png" alt="publish-project-button"/></router-link></i>
-    <i class="company-button company-my-button"><router-link to="/project/my" ><img src="../../../assets/images/我的项目按钮.png" alt="publish-project-button"/></router-link></i>
+    <i class="company-button company-my-button"><router-link to="/project/user/checkout" ><img src="../../../assets/images/我的项目按钮.png" alt="publish-project-button"/></router-link></i>
   </div>
 </template>
 
@@ -18,7 +18,7 @@
   grid-template-columns: 1fr 55px 1fr;
   grid-template-rows: 50vh 100px 1fr;
   background-color: #eee;
-  height: 100vh;
+  min-height: 100vh;
 }
 .company-logo {
   width: 200px;
