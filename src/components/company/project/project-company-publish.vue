@@ -16,6 +16,7 @@
       <i class="publish-button" v-on:click="toggleFinish"><img src="../../../assets/images/确定发布按钮副本.png" alt="publish-project-confirm-button"/></i>
       <i class="save-button"><img src="../../../assets/images/暂时保存按钮副本2.png" alt="publish-project-save-button"/></i>
     </div>
+    <!--弹出窗口-->
     <div class="confirm-background" v-show="isShow">
       <div class="confirm-container">
           <p class="confirm-title">您确定要发布项目吗?</p>

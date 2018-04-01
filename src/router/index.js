@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import ProjectCompany from '../components/company/project/project-company.vue'
 import ProjectCompanyPublish from '../components/company/project/project-company-publish.vue'
 import ProjectCompanyCheckout from '../components/company/project/project-company-checkout.vue'
+import ProjectStage from '../components/company/project/project-stage.vue'
 import Patent from '../components/company/patent.vue'
 import Resume from '../components/company/resume.vue'
 
@@ -15,6 +16,7 @@ export default new Router({
     {path: '/project/company', component: ProjectCompany, alias: '/'},
     {path: '/project/company/publish', component: ProjectCompanyPublish},
     {path: '/project/user/checkout', component: ProjectCompanyCheckout},
+    {path: '/project/stage', component: ProjectStage},
     {
       path: '/patent',
       name: 'patent',

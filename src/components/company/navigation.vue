@@ -31,6 +31,7 @@ i{
 }
 #company-nav{
   width: 100%;
+  min-width: 1920px;
   background-color: #282828;
   display: grid;
   grid-template-rows: 100px;
