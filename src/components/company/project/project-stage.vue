@@ -2,8 +2,8 @@
   <div id="company-project-stage">
     <p class="company-project-guide"><router-link to="/project/company" class="router-link">项目></router-link><router-link to="/project/user/checkout" class="router-link">我的项目></router-link>{{$route.query.proName}}</p>
     <div class="company-project-stage-button">
-      <i class="task-stage-button"><img src="../../../assets/images/阶段任务指标按钮.png"/></i>
-      <i class="file-box-button"><img src="../../../assets/images/文件汇总按钮.png"/></i>
+      <i class="task-stage-button"><img src="../../../assets/images/阶段任务指标按钮-2.png"/></i>
+      <i class="file-box-button"><router-link to="/project/file"><img src="../../../assets/images/文件汇总按钮-2.png"/></router-link></i>
     </div>
     <i class="last-page" v-on:click="pageReduce"><img src="../../../assets/images/向左.png"/></i>
     <i class="next-page" v-on:click="pagePlus"><img src="../../../assets/images/向右.png"/></i>

@@ -53,9 +53,9 @@ export default {
           "proRequest": "request",
           "proState": 0
         },
-        {"proId":1,"proState": 1},
-        {"proId":2,"proState": 2},
-        {"proId":3,"proState": 3},
+        {"proId":1,"proName": '第一个项目',"proState": 1},
+        {"proId":2,"proName": '第一个项目',"proState": 2},
+        {"proId":3,"proName": '第二个项目',"proState": 3},
         {"proId":4,"proState": 1},
         {"proId":5,"proState": 0},
         {"proId":6,"proState": 3},
