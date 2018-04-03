@@ -2,7 +2,7 @@
   <div id="company-project-file">
     <p class="company-project-guide"><router-link to="/project/company" class="router-link">项目></router-link><router-link to="/project/user/checkout" class="router-link">我的项目></router-link>{{$route.query.proName}}</p>
     <div class="company-project-stage-button">
-      <i class="task-stage-button"><router-link to="/project/stage"><img src="../../../assets/images/阶段任务指标按钮.png"/></router-link></i>
+      <i class="task-stage-button"><router-link :to="{path:'/project/stage',query:{proName:$route.query.proName}}"><img src="../../../assets/images/阶段任务指标按钮.png"/></router-link></i>
       <i class="file-box-button"><img src="../../../assets/images/文件汇总按钮.png"/></i>
     </div>
     <div class="file-container">
@@ -18,16 +18,16 @@
       <i class="file-splitter"><img src="../../../assets/images/分割线-竖.png"/></i>
       <div class="file-content">
           <div class="file-content-button">
-            <i class="file-content-button-download"><img src="../../../assets/images/下载按钮.png"/></i>
+            <i class="file-content-button-download" @click="fileDownload"><img src="../../../assets/images/下载按钮.png"/></i>
             <i class="file-content-button-upload"><img src="../../../assets/images/上传按钮.png"/></i>
-            <i class="file-content-button-delete"><img src="../../../assets/images/删除按钮.png"/></i>
+            <i class="file-content-button-delete" @click="fileDelete"><img src="../../../assets/images/删除按钮.png"/></i>
           </div>
-          <input class="file-content-search" type="search" name=""/>
+          <input class="file-content-search" type="search" name="" v-model="keyword"/>
           <i class="file-content-search-img"><img src="../../../assets/images/搜索.png"/></i>
           <div class="file-content-tabel">
             <div class="file-content-tabel-thead">
               <div class="file-content-tabel-checkbox">
-                <input type="checkbox" class="file-content-tabel-checkbox-input"/>
+                <input type="checkbox" class="file-content-tabel-checkbox-input" :checked="isCheckAllFiles" @click="checkAllFiles"/>
                 <span class="file-content-tabel-checkbox-name">全部文件</span>
               </div>
               <div class="file-content-tabel-title-1">文件名</div>
@@ -40,15 +40,15 @@
               <li class="file-content-tabel-stage-file-list-item">
                 <div class="file-content-tabel-stage-header">
                   <div class="file-content-tabel-checkbox">
-                    <input type="checkbox" class="file-content-tabel-checkbox-input"/>
+                    <input type="checkbox" class="file-content-tabel-checkbox-input" :checked="isCheckStageFiles" @click="checkStageFiles"/>
                     <span class="file-content-tabel-checkbox-name">阶段一</span>
                   </div>
                 </div>
                 <!--循环显示文件，已做-->
-                <ul class="file-content-tabel-list">
-                  <li v-for="(file,index) in files" :key="index" class="file-content-tabel-list-item">
+                <ul class="file-content-tabel-list" ref="profiles">
+                  <li v-for="(file,index) in filterFiles(files,keyword)" :key="index" class="file-content-tabel-list-item">
                     <div class="file-content-tabel-checkbox">
-                      <input type="checkbox" class="file-content-tabel-checkbox-input"/>
+                      <input type="checkbox" class="file-content-tabel-checkbox-input" value="要提交的值" :checked="isCheckAllFiles||isCheckStageFiles"/>
                       <span class="file-content-tabel-checkbox-name">{{file.fileName}}</span>
                     </div>
                     <div class="file-content-tabel-title-2">{{file.fileSize}}</div>
@@ -68,6 +68,9 @@
 export default {
   data () {
     return {
+      isCheckAllFiles: false,
+      isCheckStageFiles: false,
+      keyword: '',
       files: [
         {
           "fileId": 0,
@@ -76,7 +79,7 @@ export default {
           "fileUploader": '狗大佬',
           "fileModifyTime": '2015.9.10'
         },
-         {
+        {
           "fileId": 1,
           "fileName": '123.psd',
           "fileSize": '543.2M',
@@ -87,7 +90,41 @@ export default {
     }
   },
   methods: {
-
+    checkAllFiles:function() {
+      this.isCheckAllFiles = !this.isCheckAllFiles
+    },
+    checkStageFiles:function() {
+      this.isCheckStageFiles = !this.isCheckStageFiles
+    },
+    filterFiles: function (files,keyword) {
+      if(!keyword.trim()) {
+        return this.files
+      }else{
+        return this.files.filter(function (file) {
+          return file.fileName.includes(keyword)
+        })
+      }
+    },
+    fileDownload: function() {
+      let els = this.$refs.profiles.querySelectorAll(".file-content-tabel-checkbox-input")
+      for(let i=0;i<els.length;i++) {
+        if(els[i].checked===true) {
+          console.log(els[i].getAttribute('value'))
+        }
+      }
+      this.isCheckAllFiles = false
+      this.isCheckStageFiles = false
+    },
+    fileDelete: function() {
+      let els = this.$refs.profiles.querySelectorAll(".file-content-tabel-checkbox-input")
+      for(let i=els.length-1;i>=0;i--) {
+        if(els[i].checked===true) {
+          this.files.splice(i,1)
+        }
+      }
+      this.isCheckAllFiles = false
+      this.isCheckStageFiles = false
+    }
   }
 }
 </script>
@@ -177,6 +214,15 @@ ul {
   grid-row: 1/2;
   grid-auto-flow: column;
   grid-column-gap: 15px;
+}
+.file-content .file-content-button .file-content-button-download {
+  cursor: pointer;
+}
+.file-content .file-content-button .file-content-button-upload {
+  cursor: pointer;
+}
+.file-content .file-content-button .file-content-button-delete {
+  cursor: pointer;
 }
 .file-content .file-content-search {
   position: absolute;

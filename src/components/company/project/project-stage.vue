@@ -3,7 +3,7 @@
     <p class="company-project-guide"><router-link to="/project/company" class="router-link">项目></router-link><router-link to="/project/user/checkout" class="router-link">我的项目></router-link>{{$route.query.proName}}</p>
     <div class="company-project-stage-button">
       <i class="task-stage-button"><img src="../../../assets/images/阶段任务指标按钮-2.png"/></i>
-      <i class="file-box-button"><router-link to="/project/file"><img src="../../../assets/images/文件汇总按钮-2.png"/></router-link></i>
+      <i class="file-box-button"><router-link :to="{path:'/project/file',query:{proName:$route.query.proName}}"><img src="../../../assets/images/文件汇总按钮-2.png"/></router-link></i>
     </div>
     <i class="last-page" v-on:click="pageReduce"><img src="../../../assets/images/向左.png"/></i>
     <i class="next-page" v-on:click="pagePlus"><img src="../../../assets/images/向右.png"/></i>
@@ -76,7 +76,7 @@
         </div>
       </li>
       <li class="company-project-item">
-        <i class="company-project-item-add-img"><img src="../../../assets/images/添加新阶段.png"/></i>
+        <i class="company-project-item-add-img" @click="addStage"><img src="../../../assets/images/添加新阶段.png"/></i>
       </li>
     </ul>
     <p class="count-page">{{page}}/{{pageCount}}</p>
@@ -238,13 +238,25 @@ export default {
       this.targets.splice(index,1)
     },
     addTarget: function() {
-      let newTarget = {
+      const newTarget = {
           "targetId":0,
           "targetDeadline":'',
           "stargetDetail":'请填写指标',
           "stageRemarks":''
         }
       this.targets.push(newTarget)
+    },
+    addStage:function() {
+      const newStage = {
+          "stageId":2,
+          "stageStartTime":'',
+          "stageEndTime":'',
+          "stageSettlement":0,
+          "stageSpeed":0,
+          "targetDeadline":'',
+          "stargetDetail":''
+        }
+      this.items.push(newStage)
     }
   }
 }
