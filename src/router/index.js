@@ -1,14 +1,35 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+
+import Project from '../components/company/project.vue'
+import Patent from '../components/company/patent.vue'
+import Resume from '../components/company/resume.vue'
+
 import patentApply from '@/components/patentApply/patentApply'
 import login from '@/components/login/login'
 import forgetPassword from '@/components/login/forgetPassword'
+
 Vue.use(Router)
 
 export default new Router({
+  mode: 'history',
+  base: __dirname,
   routes: [
     {
-      path: '/',
+      path: '/project',
+      name: 'project',
+      component: Project,
+      alias: '/'
+    },
+    {
+      path: '/patent',
+      name: 'patent',
+      component: Patent
+    },
+    {
+      path: '/resume',
+      name: 'resume',
+      component: Resume
     },
     {
       path: '/patentApply',
@@ -24,6 +45,6 @@ export default new Router({
       path: '/forgetPassword',
       name:'forget_password',
       component:forgetPassword
-    },
+    }
   ]
 })
