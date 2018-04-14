@@ -21,12 +21,28 @@ Vue.use(Router)
 export default new Router({
   mode: 'history',
   base: __dirname,
-  routes: [
-    {path: '/project/company', component: ProjectCompany, alias: '/'},
-    {path: '/project/company/publish', component: ProjectCompanyPublish},
-    {path: '/project/user/checkout', component: ProjectCompanyCheckout},
-    {path: '/project/stage', component: ProjectStage},
-    {path: '/project/file', component: ProjectFile},
+  routes: [{
+      path: '/project/company',
+      component: ProjectCompany,
+      alias: '/'
+    },
+    {
+      path: '/project/company/publish',
+      component: ProjectCompanyPublish
+    },
+    {
+      path: '/project/user/checkout',
+      component: ProjectCompanyCheckout
+    },
+    {
+      path: '/project/stage',
+      component: ProjectStage
+    },
+    {
+  
+      path: '/project/file',
+      component: ProjectFile
+    },
     {
       path: '/patent',
       name: 'patent',
@@ -39,18 +55,18 @@ export default new Router({
     },
     {
       path: '/patentApply',
-      name:'patent-apply',
-      component:patentApply
+      name: 'patent-apply',
+      component: patentApply
     },
     {
       path: '/login',
-      name:'login',
-      component:login
+      name: 'login',
+      component: login
     },
     {
       path: '/forgetPassword',
-      name:'forget_password',
-      component:forgetPassword
+      name: 'forget_password',
+      component: forgetPassword
     }
   ]
 })
