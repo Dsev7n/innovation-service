@@ -3,7 +3,7 @@
     <i class="company-nav-logo"><img src="../../assets/images/logo.png" alt="logo"/></i>
     <p class="company-nav-title">创新项目网络服务平台</p>
     <ul class="company-nav-items">
-      <li class="company-nav-item"><router-link to="/project" class="company-nav-item-name" v-bind:class="{'itemActive':isProjectActive}">项目</router-link></li>
+      <li class="company-nav-item"><router-link to="/project/company" class="company-nav-item-name" v-bind:class="{'itemActive':isProjectActive}">项目</router-link></li>
       <li class="company-nav-item"><router-link to="/patent" class="company-nav-item-name" v-bind:class="{'itemActive':isPatentActive}">人才</router-link></li>
       <li class="company-nav-item"><router-link to="/resume" class="company-nav-item-name" v-bind:class="{'itemActive':isResumeActive}">专利</router-link></li>
     </ul>
@@ -26,18 +26,12 @@ export default {
 </script>
 
 <style scoped>
-body {
-  font-family: "Microsoft YaHei";
-}
-ul,li,p,div,span{
-  margin: 0;
-  padding: 0;
-}
 i{
   font-style:normal;
 }
 #company-nav{
   width: 100%;
+  min-width: 1920px;
   background-color: #282828;
   display: grid;
   grid-template-rows: 100px;
