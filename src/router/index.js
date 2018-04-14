@@ -7,8 +7,6 @@ import ProjectCompanyCheckout from '../components/company/project/project-compan
 import ProjectStage from '../components/company/project/project-stage.vue'
 import ProjectFile from '../components/company/project/project-file.vue'
 
-import Project from '../components/company/project.vue'
-
 import Patent from '../components/company/patent.vue'
 import Resume from '../components/company/resume.vue'
 
@@ -22,51 +20,40 @@ export default new Router({
   mode: 'history',
   base: __dirname,
   routes: [{
-      path: '/project/company',
-      component: ProjectCompany,
-      alias: '/'
-    },
-    {
-      path: '/project/company/publish',
-      component: ProjectCompanyPublish
-    },
-    {
-      path: '/project/user/checkout',
-      component: ProjectCompanyCheckout
-    },
-    {
-      path: '/project/stage',
-      component: ProjectStage
-    },
-    {
-  
-      path: '/project/file',
-      component: ProjectFile
-    },
-    {
-      path: '/patent',
-      name: 'patent',
-      component: Patent
-    },
-    {
-      path: '/resume',
-      name: 'resume',
-      component: Resume
-    },
-    {
-      path: '/patentApply',
-      name: 'patent-apply',
-      component: patentApply
-    },
-    {
-      path: '/login',
-      name: 'login',
-      component: login
-    },
-    {
-      path: '/forgetPassword',
-      name: 'forget_password',
-      component: forgetPassword
-    }
-  ]
+    path: '/project/company',
+    component: ProjectCompany,
+    alias: '/'
+  }, {
+    path: '/project/company/publish',
+    component: ProjectCompanyPublish
+  }, {
+    path: '/project/user/checkout',
+    component: ProjectCompanyCheckout
+  }, {
+    path: '/project/stage',
+    component: ProjectStage
+  }, {
+    path: '/project/file',
+    component: ProjectFile
+  }, {
+    path: '/patent',
+    name: 'patent',
+    component: Patent
+  }, {
+    path: '/resume',
+    name: 'resume',
+    component: Resume
+  }, {
+    path: '/patentApply',
+    name: 'patent-apply',
+    component: patentApply
+  }, {
+    path: '/login',
+    name: 'login',
+    component: login
+  }, {
+    path: '/forgetPassword',
+    name: 'forget_password',
+    component: forgetPassword
+  }]
 })
