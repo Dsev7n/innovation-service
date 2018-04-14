@@ -6,16 +6,14 @@ import router from './router'
 import VueResource from 'vue-resource'
 // import axios from "axios"
 Vue.config.productionTip = false
-
-Vue.use(VueResource)
-
+axios.defaults.baseURL='http://111.230.232.85:8080/proplatform'
+Vue.prototype.$ajax = axios
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
   router,
   render: h => h(App)
 })
-
 
 // axios({
 //   url: 'https://cnodejs.org/api/v1',
