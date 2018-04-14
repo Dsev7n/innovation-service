@@ -1,20 +1,29 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import HelloWorld from '@/components/HelloWorld'
-import hello from '@/components/hello/hello'
-
+import patentApply from '@/components/patentApply/patentApply'
+import login from '@/components/login/login'
+import forgetPassword from '@/components/login/forgetPassword'
 Vue.use(Router)
 
 export default new Router({
   routes: [
     {
       path: '/',
-      name: 'HelloWorld',
-      component: HelloWorld
     },
     {
-      path:'/hello',
-      component:hello
-    }
+      path: '/patentApply',
+      name:'patent-apply',
+      component:patentApply
+    },
+    {
+      path: '/login',
+      name:'login',
+      component:login
+    },
+    {
+      path: '/forgetPassword',
+      name:'forget_password',
+      component:forgetPassword
+    },
   ]
 })
