@@ -17,8 +17,14 @@
     <div class="patent_msg">
       <label v-for="(item,index) in applyList" :for="item.id">
         <span>{{item.name}}</span>
-        <input :type="item.type" :id="item.id" :placeholder="item.msg" v-model="item.value">
-        <span v-if="item.uncomplete">未填写完整</span>
+        <input
+          :type="item.type"
+          :id="item.id"
+          :placeholder="item.msg"
+          v-model="item.value"
+          @focus="judgefocus(index)"
+          @blur="judgefocus(index)">
+        <span class="uncomplete" v-if="item.uncomplete">未填写完整</span>
       </label>
     </div>
     <button @click="handlePub" class="Pub">发布专利</button>
@@ -29,6 +35,8 @@
   export default{
     data(){
       return{
+        userId:'',
+        userName:'',
         // 转base64码后的url
         avatar:'',
         imgData: {
@@ -95,9 +103,12 @@
       }
     },
     mounted() {
+      //读取用户userId和Username，便于发送请求
+      this.userId=this.getCookie("userId");
+      this.userName=this.getCookie("userName");
       //读取存储 把input的value填上
 //      this.$ajax({
-//        url: '/user/patent/alter/{userId}',
+//        url: '/user/patent/alter/'+this.userId,
 //        method: 'get'
 //      }).then((res) => {
 //       this.image=res.data.imgUrl;
@@ -114,6 +125,24 @@
 //      })
     },
     methods:{
+      setCookie(key, value, iDay) {
+        var oDate = new Date();
+        oDate.setDate(oDate.getDate() + iDay);
+        document.cookie = key + '=' + value + ';expires=' + oDate;
+      },
+      removeCookie(key) {
+        setCookie(key, '', -1);//这里只需要把Cookie保质期退回一天便可以删除
+      },
+      getCookie(key) {
+        var cookieArr = document.cookie.split('; ');
+        for(var i = 0; i < cookieArr.length; i++) {
+          var arr = cookieArr[i].split('=');
+          if(arr[0] === key) {
+            return arr[1];
+          }
+        }
+        return false;
+      },
       changeImage(e) {
         var files = e.target.files || e.dataTransfer.files;
         if (!files.length)  return;
@@ -135,20 +164,28 @@
           image.append('avatar', this.$refs.avatarInput.files[0]);
           console.log(image);
 //          console.log(this.$refs.avatarInput.files[0].name); //图片名字
-          this.$ajax.post('/patent/certification/upload/{userName}', image, {
+          this.$ajax.post('/patent/certification/upload/'+this.userName, image, {
             headers: {
               "Content-Type": "multipart/form-data"
             }
           })
         }
       },
+      //判断是否输入
+      judgefocus(index){
+        if(event.target.value===''){
+          this.applyList[index].uncomplete = true;
+        }else{
+          this.applyList[index].uncomplete = false;
+        }
+      },
+      // 专利信息保存
       handleSave(){
-        // 专利信息保存
+
         this.$ajax({
-          url:'/user/patent/alter/{userName}/{stateCode}',
+          url:'/user/patent/alter/'+this.userName,
           method:'post',
           data:{
-            "userName":'123',   // 未获取
             "patentName":this.applyList[0].value,
             "patentOwner":this.applyList[1].value,
             "patentNum":this.applyList[2].value,
@@ -159,41 +196,50 @@
           }
         })
           .then((res)=>{
-
+            if(res.status>=200&&res.status<300){
+              console.log('success');
+            }
           })
           .catch((err) =>{
 
           })
       },
+      // 专利信息提交
       handlePub(){
-        // 专利信息提交
+
         let len = this.applyList.length;
         var _this=this;
+        var completeNum=len;
         for(let i=0;i<len;i++){
           if(this.applyList[i].value===''){
             this.applyList[i].uncomplete = true;
-//            console.log(this.applyList[i].value);
+            completeNum--;
           }
+        };
+        if(completeNum===len){
+          this.$ajax({
+            url:'/user/patent/alter/'+this.userName,
+            method:'post',
+            data:{
+              "patentName":this.applyList[0].value,
+              "patentOwner":this.applyList[1].value,
+              "patentNum":this.applyList[2].value,
+              "patentApplyNum":this.applyList[3].value,
+              "patentAuthTime":this.applyList[4].value,
+              "patentCertiNum":this.applyList[5].value,
+              "patentState":this.applyList[6].value,
+            }
+          })
+            .then((res)=>{
+
+            })
+            .catch((err) =>{
+
+            })
         }
-        this.$ajax({
-          url:'/user/patent/alter/{userName}/{stateCode}',
-          method:'post',
-          data:{
-            "patentName":this.applyList[0].value,
-            "patentOwner":this.applyList[1].value,
-            "patentNum":this.applyList[2].value,
-            "patentApplyNum":this.applyList[3].value,
-            "patentAuthTime":this.applyList[4].value,
-            "patentCertiNum":this.applyList[5].value,
-            "patentState":this.applyList[6].value,
-          }
-        })
-          .then((res)=>{
-
-          })
-          .catch((err) =>{
-
-          })
+        else{
+          alert('请填完整！')
+        }
       }
     }
   }
@@ -261,6 +307,12 @@
   .patent_msg input{
     position: absolute;
     left:173px;
+  }
+  .patent_msg .uncomplete{
+    position: absolute;
+    left:480px;
+    color: red;
+    font-size:12px;
   }
   button{
     display: inline-block;

@@ -15,8 +15,8 @@
         <router-link :to="{name:'forget_password'}" class="forget_password">忘记密码></router-link>
       </div>
     </div>
-    <span v-for="err in errs" v-if="err.bool">
-      {{err.msg}}
+    <span v-model="err" >
+      {{err}}
     </span>
     <button @click="loginIn" class="login">登录</button>
     <button class="reg">注册</button>
@@ -32,16 +32,7 @@
         password: '',
         currentperson:'current',
         currentcompany:'',
-        errs:[
-          {
-            msg:'用户不存在',
-            bool:false
-          },
-          {
-            msg:'密码错误',
-            bool:false
-          }
-        ]
+        err:''
       }
     },
 //    mounted(){
@@ -51,6 +42,24 @@
 //      }
 //    },
     methods:{
+     setCookie(key, value, iDay) {
+        var oDate = new Date();
+        oDate.setDate(oDate.getDate() + iDay);
+        document.cookie = key + '=' + value + ';expires=' + oDate;
+     },
+      removeCookie(key) {
+         setCookie(key, '', -1);//这里只需要把Cookie保质期退回一天便可以删除
+      },
+      getCookie(key) {
+         var cookieArr = document.cookie.split('; ');
+         for(var i = 0; i < cookieArr.length; i++) {
+           var arr = cookieArr[i].split('=');
+           if(arr[0] === key) {
+             return arr[1];
+           }
+         }
+         return false;
+      },
       handlePerson(){
         this.nameType = 'person';
         this.headerType = 'header_person';
@@ -68,33 +77,61 @@
         this.currentcompany='current';
       },
       loginIn(){
+        //点击登录，先判断是企业端还是用户端，分别发出相应请求。
         if(this.username == "" || this.password == ""){
           alert("请输入用户名或密码");
           return ;
+        };
+        if(this.username=='123'&this.password =='456'){
+          this.setCookie("userId",'userId',1);
+          this.setCookie('userName','userName',1);
         }
-        if(this.nameType === 'company'){
-          this.$ajax({
-            url: '/company/login/{companyName}/{password}/{isRemember}',
-            method: 'get',
-          })
-            .then((res)=>{
-              console.log(res.data)
-            })
-            .catch((err)=>{
-              console.log(err.data)
-            })
-        }else{
-          this.$ajax({
-            url: '/user/login/{identity}/{password}/{isRemember}',
-            method: 'get',
-          })
-            .then((res)=>{
-              console.log(res.data)
-            })
-            .catch((err)=>{
-              console.log(err.data)
-            })
-        }
+        //发送请求
+//        if(this.nameType === 'company'){
+//          this.$ajax({
+//            url: '/company/login',
+//            data:{
+//              "companyName":this.username,
+//              "password":this.password ,
+//            },
+//            method: 'get',
+//          })
+//            .then((res)=>{
+//              console.log(res.data);
+//              this.setCookie("userId",res.data.userId,1);
+//              this.setCookie('userName',res.data.userName,1);
+//              if(res.data.isSuccessful){
+//                this.$router.push('/')
+//              }else if(res.data.errorMessage){
+//                this.err=res.data.errorMessage;
+//              }
+//            })
+//            .catch((err)=>{
+//              console.log(err.data)
+//            })
+//        }else{
+//          this.$ajax({
+//            url: '/user/login',
+//            data:{
+//              identity:this.username,
+//              password:this.password,
+//            },
+//            method: 'get',
+//          })
+//            .then((res)=>{
+//              console.log(res.data);
+//              this.setCookie("userId",res.data.userId,1);
+//              this.setCookie('userName',res.data.userName,1);
+//              if(res.data.isSuccessful){
+//                this.$router.push('/')
+//              }else if(res.data.errorMessage){
+//                this.err=res.data.errorMessage;
+//              }
+//            })
+//            .catch((err)=>{
+//              console.log(err.data)
+//            })
+//        }
       },
     }
   }
@@ -118,6 +155,9 @@
  }
  .header .current{
    color: #fff;
+ }
+ a{
+   cursor: pointer;
  }
  .header_person{
  background-color: #3333CC;
